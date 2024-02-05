@@ -1,6 +1,6 @@
     <?php
     //koneksi database
-    $conn = mysqli_connect("localhost", "root", "", "belajardata");
+    $conn = mysqli_connect("localhost", "root", "", "db_alfa_2");
     function query($query) {
         global $conn;
         $result = mysqli_query($conn, $query) ;
@@ -14,53 +14,21 @@
         //mengembalikan data, rows bentuknya sudah array assosiatif
         return $rows;
     }
-        function tambah ($data) {
-            global $conn ;
+    function tambah($data)
+    {
+        global $conn;
         // ambil data dari tiap elemen dalam form
-            $buku           = htmlspecialchars($data["buku"]);
-            $kategori       = htmlspecialchars($data["kategori"]);
-            $penulis        = htmlspecialchars($data["penulis"]);
-            $penerbit       = htmlspecialchars($data["penerbit"]);
-            $keterangan     = htmlspecialchars($data["keterangan"]);
+        $nim            = htmlspecialchars($data["nim"]);
+        $nama           = htmlspecialchars($data["nama"]);
+        $tanggallahir   = htmlspecialchars($data["tanggal_lahir"]);
+        $jeniskelamin   = htmlspecialchars($data["jenis_kelamin"]);
+        $jurusan        = htmlspecialchars($data["jurusan"]);
+        $namabapak      = htmlspecialchars($data["nama bapak"]);
+        $alamat         = htmlspecialchars($data["alamat"]);
         // query insert data
-        $query = "INSERT INTO perpustakaan
-                    VALUES
-                    ('','$buku', '$kategori', '$penulis', '$penerbit', '$keterangan')";
+        $query = "INSERT INTO db_alfa_2 (nim, nama, tanggal_lahir, jenis_kelamin,jurusan,nama bapak,alamat)
+              VALUES ('$nim', '$nama', '$tanggallahir', '$jeniskelamin','$jurusan','$namabapak','$alamat')";
+    
         mysqli_query($conn, $query);
         return mysqli_affected_rows($conn);
     }
-
-        function hapus($id){
-            global $conn;
-            mysqli_query($conn, "DELETE FROM perpustakaan WHERE id = $id");
-            
-            return mysqli_affected_rows($conn);
-    }
-        function update ($data) {
-            global $conn ;
-
-            $id             = $data["id"];
-            $buku           = htmlspecialchars($data["buku"]);
-            $kategori       = htmlspecialchars($data["kategori"]);
-            $penulis        = htmlspecialchars($data["penulis"]);
-            $penerbit       = htmlspecialchars($data["penerbit"]);
-            $keterangan     = htmlspecialchars($data["keterangan"]);
-    // query insert data
-        $query = "UPDATE perpustakaan SET
-                    buku        = '$buku',
-                    kategori    = '$kategori',
-                    penulis     = '$penulis',
-                    penerbit    = '$penerbit',
-                    keterangan  = '$keterangan'
-                WHERE id        = $id
-                ";
-        mysqli_query($conn, $query);
-        return mysqli_affected_rows($conn);
-    }
-
-    function cari($keyword){
-        $query = "SELECT * FROM perpustakaan WHERE buku LIKE '$keyword' OR penulis LIKE '$keyword'
-                    ";
-        return query($query);
-    }
-    ?>
