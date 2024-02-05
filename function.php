@@ -15,9 +15,12 @@ function query($query)
     //mengembalikan data, rows bentuknya sudah array assosiatif
     return $rows;
 }
+
+
 function tambah($data)
 {
     global $conn;
+    // ambil data dari tiap elemen dalam form
     // ambil data dari tiap elemen dalam form
     $nim            = htmlspecialchars($data["nim"]);
     $nama           = htmlspecialchars($data["nama"]);
@@ -32,4 +35,44 @@ function tambah($data)
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
+}
+
+function delete($id)
+{
+    global $conn;
+    mysqli_query($conn, "DELETE FROM db_alfa_2 WHERE id = $id");
+
+
+    return mysqli_affected_rows($conn);
+}
+function update($data)
+{
+    global $conn;
+    $nim            = htmlspecialchars($data["nim"]);
+    $nama           = htmlspecialchars($data["nama"]);
+    $tanggallahir   = htmlspecialchars($data["tanggal_lahir"]);
+    $jeniskelamin   = htmlspecialchars($data["jenis_kelamin"]);
+    $jurusan        = htmlspecialchars($data["jurusan"]);
+    $namabapak      = htmlspecialchars($data["nama bapak"]);
+    $alamat         = htmlspecialchars($data["alamat"]);
+    // query insert data
+    $query = "UPDATE tb_kolom SET
+            nim          = '$nim',
+            nama         = '$nama',
+            tanggal_lahir = '$tanggallahir',
+            jenis_kelamin = '$jeniskelamin',
+            jurusan        = '$jurusan',
+            nama bapak        = '$namabapak',
+            alamat        = '$alamat',
+        WHERE id         =  id
+        ";
+
+    return mysqli_affected_rows($conn);
+}
+
+function cari($keyword)
+{
+    $query = "SELECT * FROM tb_kolom WHERE nim LIKE '$keyword' OR nama LIKE '$keyword'
+            ";
+    return query($query);
 }

@@ -7,22 +7,22 @@ $penjara = mysqli_query($conn, "SELECT * FROM tb_kolom");
 <html lang="en">
 
 <head>
-    <title>Halaman Admin</title>
+    <title>Daftar Mahasiswa</title>
 </head>
 
 <body>
     <h1>Daftar Mahasiswa</h1>
-
     <table border="1" cellpadding="10" cellspacing="0">
         <tr>
             <th>No.</th>
-            <th>nim</th>
+            <th>Nim</th>
             <th>Nama</th>
-            <th>tanggal lahir</th>
-            <th>jenis kelamin</th>
-            <th>jurusan</th>
-            <th>nama bapak</th>
-            <th>alamat</th>
+            <th>Tanggal lahir</th>
+            <th>Jenis kelamin</th>
+            <th>Jurusan</th>
+            <th>Nama bapak</th>
+            <th>Alamat</th>
+            <th>Edit</th>
         </tr>
         <?php $i = 1; ?>
         <?php
@@ -37,6 +37,7 @@ $penjara = mysqli_query($conn, "SELECT * FROM tb_kolom");
                 <td><?= $row["jurusan"]; ?></td>
                 <td><?= $row["nama bapak"]; ?></td>
                 <td><?= $row["alamat"]; ?></td>
+                <td><a href="Edit.php?id=<?= $row["id"]; ?>">Edit Data</a>
 
             </tr>
             <?php $i++ ?>
